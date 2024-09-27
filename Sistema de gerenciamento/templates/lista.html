@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Lista</title>
+</head>
+<body>
+    <header>
+        <h1>Lista de Funcionários</h1>
+    </header>
+    
+    <main>
+        <ul>
+            <!-- Aqui o servidor renderiza dinamicamente a lista de funcionários -->
+            <% if (funcionarios.length > 0) { %>
+                <% funcionarios.forEach(funcionario => { %>
+                    <li><%= funcionario.name %></li>
+                <% }) %>
+            <% } else { %>
+                <li>Nenhum funcionário cadastrado.</li>
+            <% } %>
+        </ul>
+    </main>
+</body>
+</html>

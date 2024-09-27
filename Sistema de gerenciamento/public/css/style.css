@@ -1,0 +1,198 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+body{background-color: #1a2835;font-family: 'Inconsolata', monospace; height: 4vh; 
+}
+
+
+header {
+    background-color: #0a9b8a;
+    padding: 10px 20px;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    
+    height: 120px;
+    width: 100%; 
+    z-index: 1000; 
+}
+.headerFinal{
+    animation: hFinal 0.5s forwards;
+ }
+ 
+ .headerFinal li{
+  animation: list 1s forwards;
+  transition:  0.3s linear;
+  line-height: 15px;
+  font-size: 1.0em;
+ }
+
+ a{
+    color: inherit;
+    font-style: none;
+    text-decoration: none;
+ }
+nav {
+  
+
+    font-size: 2em;
+    
+}
+
+ul { 
+    display: flex;
+    list-style:none;
+    margin: 0;
+    padding: 0; 
+}
+
+.liFormatation{
+    text-decoration: none;
+    list-style: none;
+    text-transform: uppercase;
+    padding: 15px;
+    text-shadow: black 2px 3px 3px;
+    margin: 25px;
+    background-color: transparent;
+    color: transparent;
+    box-shadow: 2px 10px 6px rgba(75, 75, 75, 0.856);
+}
+
+.liFormatation:hover{
+    text-shadow: none;
+    color: black;
+    cursor: pointer;
+    border: rgba(0, 0, 0, 0.397) 1px solid;
+    transform: scale(1.2);
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.formStyle{
+    width: 800px;
+    height: 600px;
+    box-shadow: rgba(202, 202, 202, 0.205) 1px 3px 30px;
+    font-size: 2em;
+    margin: auto;
+    margin-top:300px;
+    text-align: center;
+    
+}
+.formStyle:hover{
+    transform: scale(1.1);
+    transition:  all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); 
+   
+}
+input.forms{
+    background-color: #1a2835;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.788) 2px 3px 24px;
+    box-shadow: rgba(202, 202, 202, 0.205) 5px 3px 10px;
+    border: none;
+    width: 420px;
+    color: rgba(219, 219, 219, 0.699);
+    margin-top: 25px;
+    text-align: left;
+    letter-spacing: 1px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 20px;
+    height: 70px;
+    font-size: 0.6em;
+}
+input::placeholder{
+    color: rgba(219, 219, 219, 0.699);
+}
+#labelDiv{
+    padding-top: 60px;
+}
+.selectStyle{
+    width: 400px;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 30px; 
+    background-color: #f8f8f8; 
+    font-size: 16px; 
+    appearance: none; 
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="0,0 20,0 10,10" fill="#999" /></svg>');
+    background-repeat: no-repeat; 
+    background-position: right 10px center; 
+    background-size: 10px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+#submitButton{
+    border-radius: 30px;
+    width: 400px;
+    margin-top: 25px;
+    text-align: center;
+    background-color: #1febd3;
+    height: 60px; 
+    color: #1a2835;
+    font-family: 'Inconsolata', monospace; ; 
+    font-size: 1em;
+    cursor: pointer; 
+    box-shadow: inset 0 2px 20px rgba(41, 38, 38, 0.788);
+    transition: all 0.3s ease;
+    
+    box-shadow: 3px 3px 23px rgba(126, 126, 126, 0.541);
+}
+#submitButton:hover{
+
+        background-color: #f0f0f0; 
+        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4); 
+    }
+
+label{display: block;color: white;}
+.formStyle select{
+    font-size: 0.6em;
+}
+.formProducts{
+margin-top: 30px;
+}
+.formStyle h1{
+    color: white;
+    margin-top: 20px;
+}
+
+main{
+    border: none;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+}
+.menu-painel {
+    display: flex;
+    box-shadow: white 2px 5px 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 900px;
+    margin-top: 300px;
+    height: 600px;
+    padding: 20px;
+
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column; /* Alinha imagem e texto em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    text-align: center;
+    width: 120px;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.menu-item img {
+    width: 250px;
+   
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.menu-item img:hover {
+transform: scale(1.1);
+}
