@@ -1,0 +1,11 @@
+<main>
+    <ul>
+        {{#if funcionarios.length}}
+            {{#each funcionarios}}
+                <li>{{this.name}}</li>
+            {{/each}}
+        {{else}}
+            <li>Nenhum funcionário cadastrado.</li>
+        {{/if}}
+    </ul>
+</main>

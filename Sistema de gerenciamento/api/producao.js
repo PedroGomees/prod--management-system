@@ -1,14 +1,10 @@
-const express = require('express')
-const router = express.Router()
-const app = express()
-const fs = require('fs');
-const path = require('path')
-const basePath = path.join(__dirname, '../templates')
+import express from 'express';
+import { Router } from 'express';
 
+const router = Router();
 
-router.get("/",(req,res)=>{
-    res.sendFile(`${basePath}/producao.html`)
-})
+router.get('/cadastro', (req, res) => {
+    res.render('producao', { titulo: "Produção dos Funcionários" }); // Renderiza usando o layout
+});
 
-
-module.exports = router
+export default router;

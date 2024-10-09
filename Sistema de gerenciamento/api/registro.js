@@ -1,17 +1,23 @@
-const express = require('express');
-const router = express.Router();
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import { Router } from 'express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const router = Router();
+
+// Obter __filename e __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const funcionariosFilePath = path.join(__dirname, '../funcionarios.json');
-const basePath = path.join(__dirname, '../templates');
 const filePath = path.join(__dirname, '../registro.json');
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
-router.get(`/`, (req, res) => {
-    res.sendFile(`${basePath}/registro.html`);
+router.get('/', (req, res) => {
+    res.render('registro', { titulo: "Registro de Vendas" }); 
 });
 
 router.post('/save', (req, res) => {
@@ -33,7 +39,6 @@ router.post('/save', (req, res) => {
 
         fs.readFile(filePath, 'utf-8', (err, data) => {
             let produtos = [];
-
             if (!err && data) {
                 produtos = JSON.parse(data);
             }
@@ -58,11 +63,9 @@ function funcionarioValidar(nome, callback) {
         if (data) {
             funcionarios = JSON.parse(data);
         }
-
-       
         const funcionarioExists = funcionarios.some(funcionario => funcionario.name.toLowerCase() === nome.toLowerCase());
         callback(null, funcionarioExists);
     });
 }
 
-module.exports = router;
+export default router;

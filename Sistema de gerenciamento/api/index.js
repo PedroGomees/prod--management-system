@@ -1,21 +1,23 @@
-const express = require('express');
-const app = express();
-const fs = require('fs');
-const path = require('path');
-const router = express.Router()
-const producaoRouter = require('./producao')
+import express from 'express';
+import path from 'path';
 
-router.get("/",(req, res)=>{
-    res.sendFile(`${basePath}/index.html`)
-})
+const router = express.Router();
 
-const basePath = path.join(__dirname,"../templates")
-const registroRouter = require('./registro')
-const funcionariosRouter = require('./funcionarios')
+// Rota para a página inicial
+router.get("/", (req, res) => {
+    res.render("home", { titulo: "Página Inicial" }); // Renderiza o template de home
+});
 
-router.use("/producao", producaoRouter)
+// Importe suas outras rotas
+import producaoRouter from './producao.js';
+import registroRouter from './registro.js';
+import funcionariosRouter from './funcionarios.js';
+import homeRouter from './home.js';
+// Usar outras rotas
+router.use("/producao", producaoRouter);
 router.use("/registro", registroRouter);
 router.use("/funcionarios", funcionariosRouter);
-module.exports = router
+router.use("/funcionarios", funcionariosRouter);
 
-
+// Exporta o router
+export default router;

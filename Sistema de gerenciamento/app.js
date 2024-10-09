@@ -1,25 +1,28 @@
-const express = require('express');
+import express from 'express';
+import { engine } from 'express-handlebars';
+import fs from 'fs';
+import path from 'path';
+import routes from './api/index.js';
+import { fileURLToPath } from 'url';
+
 const app = express();
 const port = 3000;
-const fs = require('fs');
-const path = require('path');
-const routes = require('./api/index.js');
 
+// Obter __dirname em módulos ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(express.static( "public"));
+// Configuração do Handlebars
+app.engine('hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(routes);
-app.use(express.urlencoded({ extended: true })); 
-app.use(express.json()); 
 
-
-const basePath = path.join(__dirname,"templates")
-
-app.get("/",(req, res)=>{
-    res.sendFile(`${basePath}/index.html`)
-})
-
-
-app.listen(port,()=>{
-    console.log("Server rodando na porta 3000")
-})
+app.listen(port, () => {
+    console.log("Server rodando na porta 3000");
+});
