@@ -1,11 +1,100 @@
-<main>
-    <ul>
-        {{#if funcionarios.length}}
-            {{#each funcionarios}}
-                <li>{{this.name}}</li>
-            {{/each}}
-        {{else}}
-            <li>Nenhum funcionário cadastrado.</li>
-        {{/if}}
-    </ul>
-</main>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{titulo}}</title>
+    <style>
+        /* Estilos específicos para evitar conflitos */
+        #funcionarios-body {
+            font-family: Arial, sans-serif;
+           background-color: #1a2835;
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        #funcionarios-main {
+            max-width: 1000px;
+            margin-top: 350px;
+            display: block;
+            height: auto;
+            padding: 20px;
+            background-color:  #c0e0ff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #funcionarios-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+         
+        }
+
+        #funcionarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #funcionarios-table th, #funcionarios-table td {
+            padding: 30px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #funcionarios-table th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        #funcionarios-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        #funcionarios-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #funcionarios-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body id="funcionarios-body">
+    <main id="funcionarios-main">
+        <h1 id="funcionarios-title">{{titulo}}</h1>
+        
+        <table id="funcionarios-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each funcionarios}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.nome}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="2">Nenhum funcionário cadastrado.</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        <a id="funcionarios-link" href="/funcionarios/cadastro">Cadastrar Novo Funcionário</a>
+    </main>
+</body>
+</html>

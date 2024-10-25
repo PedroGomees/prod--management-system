@@ -1,15 +1,16 @@
 import express from 'express';
 import { Router } from 'express';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
-
+import mysql from 'mysql'; // Importando mysql diretamente
+import conn from '../config/db.js';
 const router = Router();
 
 // Obter __dirname em módulos ES
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const funcionariosFilePath = path.join(__dirname, '../funcionarios.json');
+
+
 
 // Middleware para tratar os dados do formulário
 router.use(express.urlencoded({ extended: true }));
@@ -20,7 +21,7 @@ router.get('/cadastro', (req, res) => {
     res.render('cadastrar-funcionarios', { titulo: "Cadastro de Funcionários" });
 });
 
-// Rota para salvar novos funcionários
+// Rota para salvar os dados
 router.post('/save', (req, res) => {
     const name = req.body.name;
 
@@ -28,44 +29,24 @@ router.post('/save', (req, res) => {
         return res.status(400).send("O nome do funcionário é obrigatório.");
     }
 
-    fs.readFile(funcionariosFilePath, 'utf-8', (err, data) => {
-        let funcionarios = [];
-
-        if (!err && data) {
-            try {
-                funcionarios = JSON.parse(data);
-            } catch (parseErr) {
-                console.error("Erro ao analisar JSON:", parseErr);
-            }
+    const insertQuery = 'INSERT INTO funcionario (nome) VALUES (?)';
+    conn.query(insertQuery, [name], (err, results) => {
+        if (err) {
+            return res.status(500).send("Erro ao cadastrar funcionário");
         }
-
-        funcionarios.push({ name });
-
-        fs.writeFile(funcionariosFilePath, JSON.stringify(funcionarios, null, 2), (err) => {
-            if (err) {
-                return res.status(500).send("Erro ao salvar funcionário");
-            }
-            res.redirect('/funcionarios/lista');
-        });
+        res.redirect('/funcionarios/cadastro');
     });
 });
 
-// Rota para listar todos os funcionários
+// Rota para mostrar funcionarios
 router.get('/lista', (req, res) => {
-    fs.readFile(funcionariosFilePath, 'utf-8', (err, data) => {
+    const selectQuery = 'SELECT * FROM funcionario';
+    conn.query(selectQuery, (err, results) => {
         if (err) {
-            return res.status(500).send("Erro ao ler funcionários");
+            return res.status(500).send("Erro ao listar funcionários");
         }
-
-        let funcionarios = [];
-        try {
-            funcionarios = data ? JSON.parse(data) : [];
-        } catch (parseErr) {
-            console.error("Erro ao analisar JSON:", parseErr);
-            return res.status(500).send("Erro ao processar dados dos funcionários.");
-        }
-
-        res.render('lista', { funcionarios, titulo: "Lista de Funcionários" });
+        res.render('lista', { titulo: "Lista de Funcionários", funcionarios: results });
+        
     });
 });
 

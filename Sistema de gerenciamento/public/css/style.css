@@ -4,6 +4,11 @@ body{background-color: #1a2835;font-family: 'Inconsolata', monospace; height: 4v
 }
 
 
+#lista{
+    margin-top: 200px;
+    background-color: white;
+    border: 2px solid yellow;
+}
 header {
     background-color: #0a9b8a;
     padding: 10px 20px;

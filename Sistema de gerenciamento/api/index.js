@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-
+import conn from '../config/db.js';
 const router = express.Router();
 
 // Rota para a página inicial
@@ -9,15 +9,15 @@ router.get("/", (req, res) => {
 });
 
 // Importe suas outras rotas
-import producaoRouter from './producao.js';
-import registroRouter from './registro.js';
+
+import registroRouter from './produtos.js';
 import funcionariosRouter from './funcionarios.js';
 import homeRouter from './home.js';
 // Usar outras rotas
-router.use("/producao", producaoRouter);
-router.use("/registro", registroRouter);
+
+router.use("/produtos", registroRouter);
 router.use("/funcionarios", funcionariosRouter);
-router.use("/funcionarios", funcionariosRouter);
+
 
 // Exporta o router
 export default router;
