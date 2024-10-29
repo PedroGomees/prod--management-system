@@ -67,6 +67,11 @@
         #funcionarios-link:hover {
             background-color: #0056b3;
         }
+        .removeButton{
+            background-color: rgb(255, 109, 109);
+            padding: 8px 6px;
+            border-radius: 20%;
+        }
     </style>
 </head>
 <body id="funcionarios-body">
@@ -78,6 +83,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,10 +91,15 @@
                 <tr>
                     <td>{{this.id}}</td>
                     <td>{{this.nome}}</td>
+                    <td>
+                        <form action="/funcionarios/delete/{{this.id}}" method="POST" style="display: inline;">
+                            <button type="submit" class="removeButton">Remover</button>
+                        </form>
+                    </td>
                 </tr>
                 {{else}}
                 <tr>
-                    <td colspan="2">Nenhum funcionário cadastrado.</td>
+                    <td colspan="3">Nenhum funcionário cadastrado.</td>
                 </tr>
                 {{/each}}
             </tbody>

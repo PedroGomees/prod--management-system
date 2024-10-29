@@ -8,16 +8,18 @@ router.get("/", (req, res) => {
     res.render("home", { titulo: "Página Inicial" }); // Renderiza o template de home
 });
 
-// Importe suas outras rotas
+// Importando rotas
 
 import registroRouter from './produtos.js';
 import funcionariosRouter from './funcionarios.js';
 import homeRouter from './home.js';
+import relatorioRouter from './relatorio.js';
 // Usar outras rotas
 
 router.use("/produtos", registroRouter);
 router.use("/funcionarios", funcionariosRouter);
+router.use("/relatorio",relatorioRouter);
 
 
-// Exporta o router
+
 export default router;

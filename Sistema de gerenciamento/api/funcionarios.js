@@ -2,11 +2,11 @@ import express from 'express';
 import { Router } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import mysql from 'mysql'; // Importando mysql diretamente
+import mysql from 'mysql'; 
 import conn from '../config/db.js';
 const router = Router();
 
-// Obter __dirname em módulos ES
+// Obter __dirname em módulos
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -47,6 +47,19 @@ router.get('/lista', (req, res) => {
         }
         res.render('lista', { titulo: "Lista de Funcionários", funcionarios: results });
         
+    });
+});
+
+//Rota pra deletar funcionarios
+router.post('/delete/:id', (req, res) => {
+    const id = req.params.id;
+    const deleteQuery = 'DELETE FROM funcionario WHERE id = ?';
+
+    conn.query(deleteQuery, [id], (err, results) => {
+        if (err) {
+            return res.status(500).send("Erro ao remover funcionário");
+        }
+        res.redirect('/funcionarios/lista');
     });
 });
 

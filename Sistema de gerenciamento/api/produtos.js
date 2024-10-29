@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import conn from '../config/db.js';
 const router = Router();
+import moment from 'moment';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -59,8 +60,12 @@ router.get('/lista-producao', (req, res) => {
         if (err) {
             return res.status(500).send("Erro ao listar produtos");
         }
+    const producoes = results.map(producao =>{
+producao.data = moment(producao.data).format("DD/MM/YY");
+return producao;
+    })
         res.render('producao', { titulo: "Lista de Produção", producoes: results });
-        
+        console.log(results)
     });
 });
 export default router;

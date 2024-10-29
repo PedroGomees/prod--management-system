@@ -1,6 +1,6 @@
 
-    <form action="/produtos/registro/save" method="post" class="formStyle">
-        <h1>Cadastro de Produtos</h1>
+    <form action="/produtos/registro/save" method="post" class="registroStyle">
+    
         <div class="formProducts">
     <label for="product" id="productLabel">Selecione um produto</label>
     <select name="product" id="product" required class="selectStyle">
@@ -17,6 +17,7 @@
         <option value="Z-lampada">Lâmpada Z</option>
     </select>
         </div>
+        <div id="dateContainer">
         <div>
             <input class="forms" type="text" name="name" placeholder="Nome do produtor" required>
         </div>
@@ -27,6 +28,7 @@
            
             <input class="forms" type="date" name="date" id="date" required>
         </div>
-        <input id="submitButton" type="submit" value="Cadastrar">
+        <input id="submitButton" class="registroButton" type="submit" value="Cadastrar">
+        </div>
     </form>
     <script src="/js/script.js"></script>
