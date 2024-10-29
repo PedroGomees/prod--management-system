@@ -10,6 +10,8 @@ router.get("/", (req, res) => {
 
 // Importando rotas
 
+import manutencaoRouter from './manutencao.js';
+import tarefasRouter from './tarefas.js';
 import registroRouter from './produtos.js';
 import funcionariosRouter from './funcionarios.js';
 import homeRouter from './home.js';
@@ -19,7 +21,7 @@ import relatorioRouter from './relatorio.js';
 router.use("/produtos", registroRouter);
 router.use("/funcionarios", funcionariosRouter);
 router.use("/relatorio",relatorioRouter);
-
-
+router.use('/tarefas',tarefasRouter);
+router.use("/manutencao", manutencaoRouter);
 
 export default router;

@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 const conn = mysql.createConnection({
     host: 'localhost',
@@ -6,6 +6,6 @@ const conn = mysql.createConnection({
     password: 'sanduba222',
     database: 'prodsystem',
 });
-
-
 export default conn;
+
+a

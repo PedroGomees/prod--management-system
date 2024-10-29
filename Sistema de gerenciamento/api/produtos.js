@@ -27,6 +27,7 @@ router.post('/registro/save', (req, res) => {
     const date = req.body.date;
     const nome = req.body.name;
     const quantidade = req.body.quant; 
+    const desc = req.body.desc;
 
 
 
@@ -43,8 +44,8 @@ router.post('/registro/save', (req, res) => {
         const funcionarioId = results[0].id; // Pegar o ID do funcionário
 
         // Inserir os dados na tabela de produção
-        const insertQuery = 'INSERT INTO producao (nome_produto, data, quantidade, funcionario_id) VALUES (?, ?, ?, ?)';
-        conn.query(insertQuery, [product, date, quantidade, funcionarioId], (err, results) => {
+        const insertQuery = 'INSERT INTO producao (nome_produto, data, quantidade, funcionario_id, descricao) VALUES (?, ?, ?, ?, ?)';
+        conn.query(insertQuery, [product, date, quantidade, funcionarioId,desc], (err, results) => {
             if (err) {
                 return res.status(500).send("Erro ao cadastrar produto");
                
@@ -68,4 +69,9 @@ return producao;
         console.log(results)
     });
 });
+
+router.get('/preco',(req,res)=>{
+    res.render('preco',{titulo:"Preços"})
+})
+
 export default router;

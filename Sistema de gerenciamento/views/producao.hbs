@@ -58,7 +58,7 @@
     }
 </style>
 
-</style>
+
 </head>
 
 <main id="producao-main">
@@ -71,6 +71,7 @@
                 <th>Nome do Produto</th>
                 <th>Data</th>
                 <th>Quantidade</th>
+                <th>Descrição</th>
             </tr>
         </thead>
         <tbody>
@@ -80,11 +81,12 @@
                 <td>{{this.nome_produto}}</td>
                 <td>{{this.data}}</td>
                 <td>{{this.quantidade}}</td>
+                <td>{{this.desc}}</td>
             </tr>
             {{/each}}
         </tbody>
     </table>
     
-    <a id="producao-link" href="/registro">Cadastrar Novo Produto</a> <!-- Adicionando o ID ao link -->
+    <a id="producao-link" href="/registro">Cadastrar Novo Produto</a>
 </main>
 </html>

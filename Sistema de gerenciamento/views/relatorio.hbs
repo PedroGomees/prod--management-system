@@ -2,6 +2,9 @@
 <html lang="pt-BR">
 <head>
     <style>
+        body{
+            height: auto;
+        }
         #relatorio-main {
             font-family: Arial, sans-serif;
             background-color: #1a2835;
@@ -9,7 +12,7 @@
             margin: 0 auto;
             padding: 0;
             max-width: 1000px;
-            margin-top: 350px;
+            
             display: block;
             padding: 20px;
             background-color: #c0e0ff;
@@ -58,16 +61,62 @@
         #relatorio-link:hover {
             background-color: #0056b3;
         }
+                  .dataButton{
+             background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        }
+        .dataContainer{
+          text-align: center;
+          width: 100%;
+    margin-top: 200px;
+    margin-bottom: 100px;
+        }
+        button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #0056b3;
+}
     </style>
 </head>
-<body>
+<body>      
+     <div class="dataContainer">
+        <button class="dataButton" onclick="gerarRelatorio(01, 2024)">Janeiro 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(02, 2024)">Fevereiro 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(03, 2024)">Março 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(04, 2024)">Abril 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(05, 2024)">Maio 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(07, 2024)">Junho 2024</button>
+        
+        <button class="dataButton" onclick="gerarRelatorio(08, 2024)">Julho2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(09, 2024)">Agosto 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(10, 2024)">Outubro 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(11, 2024)">Novembro 2024</button>
+        <button class="dataButton" onclick="gerarRelatorio(12, 2024)">Dezembro 2024</button>
+
+      
+    </div>
     <main id="relatorio-main">
+        
         <h1 id="relatorio-title">{{titulo}}</h1>
         <table id="relatorio-table">
             <thead>
                 <tr>
                     <th>Nome do Produto</th>
                     <th>Total Quantidade</th>
+                    <th>Valor</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,6 +124,7 @@
                     <tr>
                         <td>{{this.nome_produto}}</td>
                         <td>{{this.total_quantidade}}</td>
+                         <td>{{this.valor}}</td>
                     </tr>
                 {{else}}
                     <tr>
@@ -83,6 +133,13 @@
                 {{/each}}
             </tbody>
         </table>
+  
     </main>
+        <script>
+      
+        function gerarRelatorio(mes, ano) {
+            window.location.href = `/relatorio?mes=${mes}&ano=${ano}`;
+        }
+    </script>
 </body>
 </html>
