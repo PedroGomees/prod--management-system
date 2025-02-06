@@ -1,10 +1,10 @@
 
-    <form action="/produtos/cadastrar-preco" method="post" class="registroStyle">
+    <form action="/produtos/cadastrar-preco/save" method="post" class="registroStyle">
     
         <div class="formProducts">
-    <label for="product" id="productLabel">Selecione um produto</label>
-    <select name="product" id="product" required class="selectStyle">
-         <option value="empacotamento">Empacotamento</option>
+    <label for="nome" id="productLabel">Selecione um produto</label>
+    <select name="nome" required class="selectStyle">
+      
         <option value="Bastão 3D">Bastão 3D</option>
         <option value="Setas">Setas</option>
         <option value="Arco ">Arco</option>
@@ -27,7 +27,7 @@
             <input class="forms" type="text" name="desc" placeholder="Descrição adicional" >
         </div>
 
-        <input id="submitButton" class="registroButton" type="submit" value="Cadastrar preço">
+        <input class="funcionarioButton" type="submit" value="Cadastrar preço">
         </div>
     </form>
     <script src="/js/script.js"></script>

@@ -3,7 +3,10 @@
     
         <div class="formProducts">
     <label for="product" id="productLabel">Selecione um produto</label>
-    <select name="product" id="product" required class="selectStyle">
+    
+       
+        <div id="dateContainer">
+            <select name="product" id="product" required class="selectStyle">
          <option value="empacotamento">Empacotamento</option>
         <option value="Bastão 3D">Bastão 3D</option>
         <option value="Setas">Setas</option>
@@ -16,9 +19,10 @@
         <option value="Cabine personalizada ">Cabine personalizada</option>
         <option value="Arco-seta ">Arco-seta</option>
         <option value="Z-lampada">Lâmpada Z</option>
+        <option value="Manutencao">Manutenção</option>
+        <option value="Placa-de-led">Placa de Led</option>
+         <option value="Torre-de-led">Torre de led</option>
     </select>
-        </div>
-        <div id="dateContainer">
         <div>
             <input class="forms" type="text" name="name" placeholder="Nome do produtor" required>
         </div>
@@ -34,5 +38,6 @@
         </div>
         <input id="submitButton" class="registroButton" type="submit" value="Cadastrar">
         </div>
+         </div>
     </form>
     <script src="/js/script.js"></script>

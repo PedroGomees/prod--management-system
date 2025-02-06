@@ -41,11 +41,11 @@ router.post('/registro/save', (req, res) => {
             return res.status(400).send("O funcionário não está cadastrado.");
         }
 
-        const funcionarioId = results[0].id; // Pegar o ID do funcionário
+        const funcionarioId = results[0].id; 
 
         // Inserir os dados na tabela de produção
         const insertQuery = 'INSERT INTO producao (nome_produto, data, quantidade, funcionario_id, descricao) VALUES (?, ?, ?, ?, ?)';
-        conn.query(insertQuery, [product, date, quantidade, funcionarioId,desc], (err, results) => {
+        conn.query(insertQuery, [product, date, quantidade, funcionarioId,desc,], (err, results) => {
             if (err) {
                 return res.status(500).send("Erro ao cadastrar produto");
                
@@ -56,22 +56,53 @@ router.post('/registro/save', (req, res) => {
 });
 
 router.get('/lista-producao', (req, res) => {
-    const selectQuery = 'SELECT * FROM producao';
+    const selectQuery = `
+        SELECT 
+            producao.id,
+            producao.nome_produto,
+            producao.data,
+            producao.quantidade,
+            producao.descricao,
+            funcionario.nome AS nome_funcionario
+        FROM producao
+        INNER JOIN funcionario ON producao.funcionario_id = funcionario.id
+    `;
     conn.query(selectQuery, (err, results) => {
         if (err) {
             return res.status(500).send("Erro ao listar produtos");
         }
-    const producoes = results.map(producao =>{
-producao.data = moment(producao.data).format("DD/MM/YY");
-return producao;
-    })
-        res.render('producao', { titulo: "Lista de Produção", producoes: results });
-        console.log(results)
+
+        const producoes = results.map(producao => {
+            producao.data = moment(producao.data).format("DD/MM/YY");
+            return producao;
+        });
+        
+        res.render('producao', { 
+            titulo: "Lista de Produção", 
+            producoes 
+        });
+        console.log(results);
     });
 });
 
-router.get('/preco',(req,res)=>{
-    res.render('preco',{titulo:"Preços"})
+router.get('/cadastrar-preco',(req,res)=>{
+   
+    res.render('preco')
+})
+
+router.post("/cadastrar-preco/save",(req,res)=>{
+    const nome = req.body.nome;
+    const preco = req.body.preco;
+    const desc = req.body.desc;
+
+    const insertQuery = `INSERT INTO produtos (nome, preco_unitario,descricao) VALUES (?,?,?)`;
+    conn.query(insertQuery,[nome,preco,desc],(err,results)=>{
+        if(err){
+            return res.status(500).send("Erro ao inserir produto" + err);
+        }
+        res.redirect("/cadastrar-preco")
+    })
+   
 })
 
 export default router;

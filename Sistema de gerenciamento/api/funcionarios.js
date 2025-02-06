@@ -63,4 +63,16 @@ router.post('/delete/:id', (req, res) => {
     });
 });
 
+function atualizarNome(id,novoNome){
+    const query = 'UPDATE funcionario SET nome = ? WHERE id = ?';
+conn.query(query,[novoNome,5],(err,result)=>{
+    if(err){
+        console.error("Erro ao atualizar nome")
+        return;
+    }
+    console.log("Nome atualizado para"+ novoNome )
+})}
+
+
+
 export default router;
