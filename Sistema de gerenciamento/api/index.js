@@ -21,7 +21,7 @@ import loginRouter from "./login.js"
 
 // Usar outras rotas
 
-router.use("/produtos",authMiddleware, registroRouter);
+router.use("/produtos", registroRouter);
 router.use("/funcionarios",authMiddleware, funcionariosRouter);
 router.use("/relatorio",authMiddleware,relatorioRouter);
 router.use('/tarefas',authMiddleware,tarefasRouter);

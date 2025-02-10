@@ -22,87 +22,95 @@ router.get('/registro', (req, res) => {
 
 
 // Rota POST para salvar a produção
-router.post('/registro/save', (req, res) => {
-    const product = req.body.product;
-    const date = req.body.date;
-    const nome = req.body.name;
-    const quantidade = req.body.quant; 
-    const desc = req.body.desc;
+router.post('/registro/save', async (req, res) => {
+    try {
+        const { product, date, name, quant, desc } = req.body;
 
+        // Verificar se o funcionário existe
+        const funcionarioQuery = 'SELECT id FROM funcionario WHERE nome = ?';
+        const [results] = await conn.query(funcionarioQuery, [name]);
 
-
-    // Verificar se o funcionário existe
-    const funcionarioQuery = 'SELECT id FROM funcionario WHERE nome = ?';
-    conn.query(funcionarioQuery, [nome], (err, results) => {
-        if (err) {
-            return res.status(500).send("Erro ao verificar funcionário");
-        }
         if (results.length === 0) {
             return res.status(400).send("O funcionário não está cadastrado.");
         }
 
-        const funcionarioId = results[0].id; 
+        const funcionarioId = results[0].id;
 
         // Inserir os dados na tabela de produção
         const insertQuery = 'INSERT INTO producao (nome_produto, data, quantidade, funcionario_id, descricao) VALUES (?, ?, ?, ?, ?)';
-        conn.query(insertQuery, [product, date, quantidade, funcionarioId,desc,], (err, results) => {
-            if (err) {
-                return res.status(500).send("Erro ao cadastrar produto");
-               
-            }
-            res.redirect('/produtos/registro'); // Redirecionar após o sucessoto
-        });
-    });
+        await conn.query(insertQuery, [product, date, quant, funcionarioId, desc]);
+
+        res.redirect('/produtos/registro'); // Redirecionar após o sucesso
+    } catch (error) {
+        console.error("Erro ao cadastrar produto:", error);
+        res.status(500).send("Erro ao cadastrar produto.");
+    }
 });
 
+// Pagina que mostra filtro de produção
 router.get('/lista-producao', (req, res) => {
-    const selectQuery = `
-        SELECT 
-            producao.id,
-            producao.nome_produto,
-            producao.data,
-            producao.quantidade,
-            producao.descricao,
-            funcionario.nome AS nome_funcionario
-        FROM producao
-        INNER JOIN funcionario ON producao.funcionario_id = funcionario.id
-    `;
-    conn.query(selectQuery, (err, results) => {
-        if (err) {
-            return res.status(500).send("Erro ao listar produtos");
+    const query = `SELECT id, nome FROM funcionario`;
+
+    conn.query(query, (error, results) => {
+        if (error) {
+            console.error("Erro ao buscar funcionários:", error);
+            return res.status(500).send("Erro ao carregar funcionários.");
         }
 
-        const producoes = results.map(producao => {
-            producao.data = moment(producao.data).format("DD/MM/YY");
-            return producao;
-        });
-        
-        res.render('producao', { 
-            titulo: "Lista de Produção", 
-            producoes 
-        });
         console.log(results);
+        res.render('producao-home', {
+            titulo: "Filtragem de Produção",
+            funcionarios: results
+        });
     });
 });
+
+router.get('/lista-producao/:id', (req, res) => {
+    const funcionarioID = req.params.id;
+ 
+    const query = `
+        SELECT p.nome_produto, p.quantidade, p.data, f.nome AS nome_funcionario
+        FROM producao p
+        JOIN funcionario f ON p.funcionario_id = f.id
+        WHERE p.funcionario_id = ?`;
+
+    conn.query(query, [funcionarioID], (error, results) => {
+        if (error) {
+            console.error("Erro ao buscar produção:", error);
+            return res.status(500).send("Erro ao carregar produção.");
+        }
+
+        results.forEach(produto => {
+            produto.data = moment(produto.data).format("DD/MM/YY");
+        });
+
+        // ✅ AGORA o res.render está dentro do callback!
+        res.render('producao-funcionario', {
+            titulo: "Produção do Funcionário",
+            produtos: results
+        });
+    });
+});
+
+
 
 router.get('/cadastrar-preco',(req,res)=>{
    
     res.render('preco')
 })
 
-router.post("/cadastrar-preco/save",(req,res)=>{
-    const nome = req.body.nome;
-    const preco = req.body.preco;
-    const desc = req.body.desc;
+router.post("/cadastrar-preco/save", async (req, res) => {
+    try {
+        const { nome, preco, desc } = req.body;
 
-    const insertQuery = `INSERT INTO produtos (nome, preco_unitario,descricao) VALUES (?,?,?)`;
-    conn.query(insertQuery,[nome,preco,desc],(err,results)=>{
-        if(err){
-            return res.status(500).send("Erro ao inserir produto" + err);
-        }
-        res.redirect("/cadastrar-preco")
-    })
-   
-})
+        const insertQuery = `INSERT INTO produtos (nome, preco_unitario, \`descricao\`) VALUES (?, ?, ?)`
 
+         conn.query(insertQuery, [nome, preco, desc]);
+
+        res.redirect("/cadastrar-preco");
+    } catch (error) {
+        console.error("Erro ao inserir produto:", error);
+        res.status(500).send("Erro ao inserir produto.");
+    }
+});
 export default router;

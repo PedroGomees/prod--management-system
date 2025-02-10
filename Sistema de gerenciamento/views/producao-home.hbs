@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <style>
+        body {
+            height: auto;
+        }
+        #relatorio-main {
+            font-family: Arial, sans-serif;
+            background-color: #1a2835;
+            height: auto;
+            margin: 0 auto;
+            padding: 0;
+            max-width: 1000px;
+            display: block;
+            padding: 20px;
+            background-color: #c0e0ff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #relatorio-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #relatorio-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        #relatorio-table th, #relatorio-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        #relatorio-table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        #relatorio-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .dataButton {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dataContainer {
+            text-align: center;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .dataButton:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .dataButton:focus {
+            outline: none;
+            box-shadow: 0 0 5px #0056b3;
+        }
+    </style>
+</head>
+<body>
+  
+
+    <!-- Botões de funcionários -->
+    <div class="dataContainer">
+        {{#each funcionarios}}
+            <p>Funcionário: {{this.nome}} (ID: {{this.id}})</p>
+            <a href="/produtos/lista-producao/{{this.id}}">
+                <button class="dataButton">{{this.nome}}</button>
+            </a>
+        {{/each}}
+    </div>
+</body>
+
+</html>
